@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cabecera from "./components/Cabecera";
 import Navegacion from "./components/Navegacion";
 import Bienvenida from "./components/Bienvenida";
@@ -11,7 +11,14 @@ const categorias = ["Todas", "Música", "Artes visuales", "Teatro", "Danza", "Li
 
 function App() {
   const [categoria, setCategoria] = useState("Todas");
-  const [inscripciones, setInscripciones] = useState([]);
+  const [inscripciones, setInscripciones] = useState(() => {
+    const guardadas = localStorage.getItem("inscripciones");
+    return guardadas ? JSON.parse(guardadas) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("inscripciones", JSON.stringify(inscripciones));
+  }, [inscripciones]);
 
   const visibles =
     categoria === "Todas"
