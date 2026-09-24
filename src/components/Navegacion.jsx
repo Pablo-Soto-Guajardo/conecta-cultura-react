@@ -10,6 +10,7 @@ function Navegacion() {
           <Nav className="ms-auto">
             <Nav.Link href="#inicio">Inicio</Nav.Link>
             <Nav.Link href="#actividades">Actividades</Nav.Link>
+            <Nav.Link href="#inscripciones">Mis inscripciones</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
