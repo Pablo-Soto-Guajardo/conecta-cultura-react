@@ -1,8 +1,12 @@
 function PiePagina() {
+  const anioActual = new Date().getFullYear();
+
   return (
-    <footer class="pie-sitio">
-    <p>&copy; 2026 Veterinaria San Marcos</p>
-  </footer>
+    <footer className="py-4 bg-dark text-white mt-auto">
+      <div className="container">
+        <p className="mb-0">&copy; {anioActual} Conecta Cultura</p>
+      </div>
+    </footer>
   );
 }
 
