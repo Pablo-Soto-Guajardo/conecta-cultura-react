@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Cabecera from "./components/Cabecera";
 import Navegacion from "./components/Navegacion";
-import MisInscripciones from "./components/MisInscripciones";
 import PiePagina from "./components/PiePagina";
 import Inicio from "./pages/Inicio";
 import Actividades from "./pages/Actividades";
 import DetalleActividad from "./pages/DetalleActividad";
+import Categorias from "./pages/Categorias";
+import CategoriaDetalle from "./pages/CategoriaDetalle";
+import Ofertas from "./pages/Ofertas";
+import Inscripciones from "./pages/Inscripciones";
 import AdminActividades from "./pages/admin/AdminActividades";
 import NoEncontrada from "./pages/NoEncontrada";
 import { actividades } from "./data/actividades";
@@ -49,16 +52,32 @@ function App() {
             <DetalleActividad actividades={actividades} onInscribir={inscribir} />
           }
         />
+        <Route
+          path="/categorias"
+          element={<Categorias actividades={actividades} />}
+        />
+        <Route
+          path="/categorias/:nombre"
+          element={
+            <CategoriaDetalle actividades={actividades} onInscribir={inscribir} />
+          }
+        />
+        <Route
+          path="/ofertas"
+          element={<Ofertas actividades={actividades} onInscribir={inscribir} />}
+        />
+        <Route
+          path="/inscripciones"
+          element={
+            <Inscripciones
+              inscripciones={inscripciones}
+              onEliminar={eliminarInscripcion}
+            />
+          }
+        />
         <Route path="/admin/actividades" element={<AdminActividades />} />
         <Route path="*" element={<NoEncontrada />} />
       </Routes>
-      <section className="container pb-4">
-        <h2 className="h4 mb-3">Mis inscripciones ({inscripciones.length})</h2>
-        <MisInscripciones
-          inscripciones={inscripciones}
-          onEliminar={eliminarInscripcion}
-        />
-      </section>
       <PiePagina />
     </>
   );

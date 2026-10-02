@@ -11,6 +11,9 @@ function Navegacion() {
           <Nav className="ms-auto">
             <NavLink className="nav-link" to="/">Inicio</NavLink>
             <NavLink className="nav-link" to="/actividades">Actividades</NavLink>
+            <NavLink className="nav-link" to="/categorias">Categorías</NavLink>
+            <NavLink className="nav-link" to="/ofertas">Ofertas</NavLink>
+            <NavLink className="nav-link" to="/inscripciones">Mis inscripciones</NavLink>
             <NavLink className="nav-link" to="/admin/actividades">Administración</NavLink>
           </Nav>
         </Navbar.Collapse>
