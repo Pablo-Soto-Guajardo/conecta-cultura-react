@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function TarjetaActividad({ actividad, onInscribir }) {
   const textoPrecio =
     actividad.precio === 0
@@ -17,13 +19,21 @@ function TarjetaActividad({ actividad, onInscribir }) {
         {actividad.cupos > 0 && actividad.cupos <= 5 && (
           <p className="text-danger fw-bold">¡Últimos cupos!</p>
         )}
-        <button
-          className="btn btn-primary mt-auto"
-          onClick={() => onInscribir(actividad)}
-          disabled={actividad.cupos === 0}
-        >
-          {actividad.cupos === 0 ? "Sin cupos" : "Inscribirme"}
-        </button>
+        <div className="d-flex gap-2 mt-auto">
+          <button
+            className="btn btn-primary flex-grow-1"
+            onClick={() => onInscribir(actividad)}
+            disabled={actividad.cupos === 0}
+          >
+            {actividad.cupos === 0 ? "Sin cupos" : "Inscribirme"}
+          </button>
+          <Link
+            className="btn btn-outline-secondary"
+            to={`/actividades/${actividad.id}`}
+          >
+            Ver detalle
+          </Link>
+        </div>
       </div>
     </article>
   );

@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import Cabecera from "./components/Cabecera";
 import Navegacion from "./components/Navegacion";
-import Bienvenida from "./components/Bienvenida";
 import MisInscripciones from "./components/MisInscripciones";
 import PiePagina from "./components/PiePagina";
-import Cartelera from "./pages/Cartelera";
+import Inicio from "./pages/Inicio";
+import Actividades from "./pages/Actividades";
+import DetalleActividad from "./pages/DetalleActividad";
+import AdminActividades from "./pages/admin/AdminActividades";
+import NoEncontrada from "./pages/NoEncontrada";
 import { actividades } from "./data/actividades";
 
-const categorias = ["Todas", "Música", "Artes visuales", "Teatro", "Danza", "Literatura"];
-
 function App() {
-  const [categoria, setCategoria] = useState("Todas");
   const [inscripciones, setInscripciones] = useState(() => {
     const guardadas = localStorage.getItem("inscripciones");
     return guardadas ? JSON.parse(guardadas) : [];
@@ -19,11 +20,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem("inscripciones", JSON.stringify(inscripciones));
   }, [inscripciones]);
-
-  const visibles =
-    categoria === "Todas"
-      ? actividades
-      : actividades.filter((actividad) => actividad.categoria === categoria);
 
   function inscribir(actividad) {
     const yaExiste = inscripciones.some((item) => item.id === actividad.id);
@@ -39,35 +35,30 @@ function App() {
     <>
       <Cabecera />
       <Navegacion />
-      <main className="container py-4">
-        <Bienvenida />
-
-        <section id="actividades" className="mb-5">
-          <h2 className="h4 mb-3">Cartelera</h2>
-          <label htmlFor="filtro-categoria" className="form-label">
-            Filtrar por categoría
-          </label>
-          <select
-            id="filtro-categoria"
-            className="form-select mb-4"
-            value={categoria}
-            onChange={(evento) => setCategoria(evento.target.value)}
-          >
-            {categorias.map((nombre) => (
-              <option key={nombre}>{nombre}</option>
-            ))}
-          </select>
-          <Cartelera actividades={visibles} onInscribir={inscribir} />
-        </section>
-
-        <section id="inscripciones">
-          <h2 className="h4 mb-3">Mis inscripciones ({inscripciones.length})</h2>
-          <MisInscripciones
-            inscripciones={inscripciones}
-            onEliminar={eliminarInscripcion}
-          />
-        </section>
-      </main>
+      <Routes>
+        <Route path="/" element={<Inicio />} />
+        <Route
+          path="/actividades"
+          element={
+            <Actividades actividades={actividades} onInscribir={inscribir} />
+          }
+        />
+        <Route
+          path="/actividades/:id"
+          element={
+            <DetalleActividad actividades={actividades} onInscribir={inscribir} />
+          }
+        />
+        <Route path="/admin/actividades" element={<AdminActividades />} />
+        <Route path="*" element={<NoEncontrada />} />
+      </Routes>
+      <section className="container pb-4">
+        <h2 className="h4 mb-3">Mis inscripciones ({inscripciones.length})</h2>
+        <MisInscripciones
+          inscripciones={inscripciones}
+          onEliminar={eliminarInscripcion}
+        />
+      </section>
       <PiePagina />
     </>
   );

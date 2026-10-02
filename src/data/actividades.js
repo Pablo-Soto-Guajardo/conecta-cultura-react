@@ -1,4 +1,12 @@
 // src/data/actividades.js
+export const categorias = [
+  "Música",
+  "Artes visuales",
+  "Teatro",
+  "Danza",
+  "Literatura"
+];
+
 export const actividades = [
   {
     id: 1,
