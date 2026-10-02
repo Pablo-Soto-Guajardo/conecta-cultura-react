@@ -12,17 +12,37 @@ import Ofertas from "./pages/Ofertas";
 import Inscripciones from "./pages/Inscripciones";
 import AdminActividades from "./pages/admin/AdminActividades";
 import NoEncontrada from "./pages/NoEncontrada";
-import { actividades } from "./data/actividades";
+import { actividades as actividadesIniciales } from "./data/actividades";
 
 function App() {
+  const [actividades, setActividades] = useState(() => {
+    const guardadas = localStorage.getItem("actividades");
+    return guardadas ? JSON.parse(guardadas) : actividadesIniciales;
+  });
+
   const [inscripciones, setInscripciones] = useState(() => {
     const guardadas = localStorage.getItem("inscripciones");
     return guardadas ? JSON.parse(guardadas) : [];
   });
 
   useEffect(() => {
+    localStorage.setItem("actividades", JSON.stringify(actividades));
+  }, [actividades]);
+
+  useEffect(() => {
     localStorage.setItem("inscripciones", JSON.stringify(inscripciones));
   }, [inscripciones]);
+
+  function agregarActividad(datos) {
+    const idsExistentes = actividades.map((item) => item.id);
+    const nuevoId = Math.max(0, ...idsExistentes) + 1;
+    setActividades([...actividades, { id: nuevoId, ...datos }]);
+  }
+
+  function eliminarActividad(id) {
+    setActividades(actividades.filter((item) => item.id !== id));
+    setInscripciones(inscripciones.filter((item) => item.id !== id));
+  }
 
   function inscribir(actividad) {
     const yaExiste = inscripciones.some((item) => item.id === actividad.id);
@@ -75,7 +95,16 @@ function App() {
             />
           }
         />
-        <Route path="/admin/actividades" element={<AdminActividades />} />
+        <Route
+          path="/admin/actividades"
+          element={
+            <AdminActividades
+              actividades={actividades}
+              onAgregar={agregarActividad}
+              onEliminar={eliminarActividad}
+            />
+          }
+        />
         <Route path="*" element={<NoEncontrada />} />
       </Routes>
       <PiePagina />
