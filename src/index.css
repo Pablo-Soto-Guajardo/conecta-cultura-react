@@ -8,3 +8,10 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* La página activa del menú no se distingue solo por el color. */
+.navbar .nav-link.active {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}

@@ -1,20 +1,51 @@
+import { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 
+const enlaces = [
+  { to: "/", texto: "Inicio" },
+  { to: "/actividades", texto: "Actividades" },
+  { to: "/categorias", texto: "Categorías" },
+  { to: "/ofertas", texto: "Ofertas" },
+  { to: "/inscripciones", texto: "Mis inscripciones" },
+  { to: "/admin/actividades", texto: "Administración" }
+];
+
 function Navegacion() {
+  const [abierto, setAbierto] = useState(false);
+
+  function cerrarMenu() {
+    setAbierto(false);
+  }
+
   return (
-    <Navbar expand="md" bg="light" data-bs-theme="light">
+    <Navbar
+      expand="lg"
+      bg="light"
+      data-bs-theme="light"
+      expanded={abierto}
+      onToggle={setAbierto}
+    >
       <Container>
-        <Navbar.Brand as={Link} to="/">Conecta Cultura</Navbar.Brand>
-        <Navbar.Toggle aria-controls="menu-principal" />
+        <Navbar.Brand as={Link} to="/" onClick={cerrarMenu}>
+          Conecta Cultura
+        </Navbar.Brand>
+        <Navbar.Toggle
+          aria-controls="menu-principal"
+          label="Abrir o cerrar el menú"
+        />
         <Navbar.Collapse id="menu-principal">
           <Nav className="ms-auto">
-            <NavLink className="nav-link" to="/">Inicio</NavLink>
-            <NavLink className="nav-link" to="/actividades">Actividades</NavLink>
-            <NavLink className="nav-link" to="/categorias">Categorías</NavLink>
-            <NavLink className="nav-link" to="/ofertas">Ofertas</NavLink>
-            <NavLink className="nav-link" to="/inscripciones">Mis inscripciones</NavLink>
-            <NavLink className="nav-link" to="/admin/actividades">Administración</NavLink>
+            {enlaces.map((enlace) => (
+              <NavLink
+                className="nav-link"
+                key={enlace.to}
+                to={enlace.to}
+                onClick={cerrarMenu}
+              >
+                {enlace.texto}
+              </NavLink>
+            ))}
           </Nav>
         </Navbar.Collapse>
       </Container>

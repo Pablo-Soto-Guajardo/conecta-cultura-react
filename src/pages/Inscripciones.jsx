@@ -1,11 +1,19 @@
+import { Col, Container, Row } from "react-bootstrap";
 import MisInscripciones from "../components/MisInscripciones";
 
 function Inscripciones({ inscripciones, onEliminar }) {
   return (
-    <main className="container py-4">
+    <Container as="main" className="py-4">
       <h1>Mis inscripciones ({inscripciones.length})</h1>
-      <MisInscripciones inscripciones={inscripciones} onEliminar={onEliminar} />
-    </main>
+      <Row>
+        <Col xs={12} lg={8}>
+          <MisInscripciones
+            inscripciones={inscripciones}
+            onEliminar={onEliminar}
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
