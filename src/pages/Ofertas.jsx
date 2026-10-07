@@ -1,3 +1,4 @@
+import { Container } from "react-bootstrap";
 import Cartelera from "./Cartelera";
 
 const PRECIO_MAXIMO_OFERTA = 5000;
@@ -8,7 +9,7 @@ function Ofertas({ actividades, onInscribir }) {
   );
 
   return (
-    <main className="container py-4">
+    <Container as="main" className="py-4">
       <h1>Ofertas</h1>
       <p>
         Actividades gratuitas o con un valor de hasta $
@@ -19,7 +20,7 @@ function Ofertas({ actividades, onInscribir }) {
       ) : (
         <Cartelera actividades={ofertas} onInscribir={onInscribir} />
       )}
-    </main>
+    </Container>
   );
 }
 

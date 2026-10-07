@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Container } from "react-bootstrap";
 import Cartelera from "./Cartelera";
 import { categorias } from "../data/actividades";
 
@@ -11,7 +12,7 @@ function Actividades({ actividades, onInscribir }) {
       : actividades.filter((actividad) => actividad.categoria === categoria);
 
   return (
-    <main className="container py-4">
+    <Container as="main" className="py-4">
       <h1>Actividades</h1>
       <label htmlFor="filtro-categoria" className="form-label">
         Filtrar por categoría
@@ -28,7 +29,7 @@ function Actividades({ actividades, onInscribir }) {
         ))}
       </select>
       <Cartelera actividades={visibles} onInscribir={onInscribir} />
-    </main>
+    </Container>
   );
 }
 

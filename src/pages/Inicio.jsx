@@ -1,9 +1,10 @@
+import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Bienvenida from "../components/Bienvenida";
 
 function Inicio() {
   return (
-    <main className="container py-4">
+    <Container as="main" className="py-4">
       <Bienvenida />
       <div className="d-flex flex-wrap gap-2">
         <Link className="btn btn-primary" to="/actividades">
@@ -16,7 +17,7 @@ function Inicio() {
           Ver ofertas
         </Link>
       </div>
-    </main>
+    </Container>
   );
 }
 
